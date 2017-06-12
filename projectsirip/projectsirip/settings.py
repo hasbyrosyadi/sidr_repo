@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_tables2',
+    'crudbuilder'
 ]
+
+LOGIN_REQUIRED_FOR_CRUD = True
+PERMISSION_REQUIRED_FOR_CRUD = True
+PROJECT_NAME = 'projectsirip'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,11 +81,22 @@ WSGI_APPLICATION = 'projectsirip.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hibah_penelitian',
+        'USER': 'hasbyrosyadi',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+# pembuatan users
+USER_ROLES = (
+    'Manager',
+    'Staff',
+    'Dosen',
+    'Verifikator',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
