@@ -1,61 +1,48 @@
-from django.contrib.auth.models import User
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+# Create your models here.
 from django.db import models
-from userroles import roles
 
+class Authors(models.Model):
+    authors= models.CharField(max_length=100,unique=True)
 
-# class UserRole(models.Model):
-#     user = models.OneToOneField(User, related_name='role')
-#     name = models.CharField(max_length=100, choices=roles.choices)
-#     child = models.CharField(max_length=100, blank=True)
-#     _valid_roles = roles
-#
-#     @property
-#     def profile(self):
-#         if not self.child:
-#             return None
-#         return getattr(self, self.child)
-#
-#     def __eq__(self, other):
-#         return self.name == other.name
-#
-#     def __getattr__(self, name):
-#         if name.startswith('is_'):
-#             role = getattr(self._valid_roles, name[3:], None)
-#             if role:
-#                 return self == role
-#
-#         raise AttributeError("'%s' object has no attribute '%s'" %
-#                               (self.__class__.__name__, name))
-#
-#     def __unicode__(self):
-#         return self.name
-#
-#
-# def set_user_role(user, role, profile=None):
-#     if profile:
-#         try:
-#             UserRole.objects.get(user=user).delete()
-#         except UserRole.DoesNotExist:
-#             pass
-#         profile.user = user
-#         profile.name = role.name
-#         profile.child = str(profile.__class__.__name__).lower()
-#
-#     else:
-#         try:
-#             profile = UserRole.objects.get(user=user)
-#         except UserRole.DoesNotExist:
-#             profile = UserRole(user=user, name=role.name)
-#         else:
-#             profile.name = role.name
-#
-#     profile.save()
+class Role(models.Model):
+    role = models.CharField(max_length=50)
 
-class Mahasiswa(models.Model):
-    """ an actual singular human being """
-    Nama = models.CharField(max_length=100)
-    Fakultas = models.CharField(max_length=100)
-    Email = models.EmailField()
+class Fokus_Penelitian(models.Model):
+    major = models.CharField(max_length=100)
+    minor = models.CharField(max_length=100)
 
-    def __unicode__(self):
-        return self.name
+class Fakultas(models.Model):
+    fakultas = models.CharField(max_length=100)
+
+class Program_Studi(models.Model):
+    nama_fakultas = models.ForeignKey(Fakultas, on_delete=models.CASCADE, default='SOME STRING')
+    program_studi = models.CharField(max_length=100)
+
+class Penelitian(models.Model):
+    judul_penelitian = models.CharField(max_length=500)
+    nomor_kontrak = models.CharField(max_length=100)
+    tahun_pelaksanaan = models.PositiveSmallIntegerField()
+    jenis_penelitian = models.CharField(max_length=50)
+    bidang_penelitian = models.ForeignKey(Fokus_Penelitian,on_delete=models.CASCADE)
+    asal_sumber_dana = models.CharField(max_length=50)
+    jenis_sumber_dana=models.CharField(max_length=50)
+    nama_sumber_dana = models.CharField(max_length=100)
+    institusi_sumber_dana = models.CharField(max_length=100)
+    nama_institusi_sumber_dana = models.CharField(max_length=100)
+    jumlah_dana_dalam_negeri = models.DecimalField(max_digits=12,decimal_places=2)
+    jumlah_dana_luar_negeri = models.DecimalField(max_digits=12,decimal_places=2)
+    program_studi = models.ForeignKey(Program_Studi, on_delete=models.CASCADE)
+    status_data = models.CharField(max_length=100)
+    penginput = models.CharField(max_length=100)
+    file_path = models.CharField(max_length=300)
+    date = models.DateField(auto_now=True)
+
+class Penelitian_Authors_Role(models.Model):
+
+    role = models.CharField(max_length=50)
+    authors = models.ForeignKey(Authors,to_field='authors')
+    judul_penelitian = models.ForeignKey(Penelitian,related_name='+',default='judul')
+    tahun_pelaksanaan = models.ForeignKey(Penelitian,related_name='+',default='1')
