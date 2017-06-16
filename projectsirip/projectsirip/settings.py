@@ -31,21 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'percobaan.apps.PercobaanConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_tables2',
-    'crudbuilder'
 ]
 
 LOGIN_REQUIRED_FOR_CRUD = True
 PERMISSION_REQUIRED_FOR_CRUD = True
 PROJECT_NAME = 'projectsirip'
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,7 +80,7 @@ WSGI_APPLICATION = 'projectsirip.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hibah_penelitian',
         'USER': 'hasbyrosyadi',
         'PASSWORD': '',
