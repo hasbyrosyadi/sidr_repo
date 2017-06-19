@@ -11,6 +11,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Asal_Sumber_Dana',
+            fields=[
+                ('sumber_dana', models.CharField(max_length=50, serialize=False, primary_key=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Authors',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -26,8 +32,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Fokus_Penelitian',
             fields=[
-                ('major', models.CharField(max_length=100, serialize=False, primary_key=True)),
-                ('minor', models.CharField(max_length=100)),
+                ('nama', models.CharField(max_length=100, serialize=False, primary_key=True)),
+                ('parent', models.ForeignKey(to='percobaan.Fokus_Penelitian')),
             ],
         ),
         migrations.CreateModel(
@@ -54,6 +60,9 @@ class Migration(migrations.Migration):
                 ('status_data', models.CharField(max_length=100)),
                 ('file_path', models.CharField(max_length=300)),
                 ('date', models.DateField(auto_now=True)),
+                ('asal_sumber_dana', models.ManyToManyField(to='percobaan.Asal_Sumber_Dana')),
+                ('bidang_penelitian', models.ForeignKey(to='percobaan.Fokus_Penelitian')),
+                ('jenis_penelitian', models.ForeignKey(to='percobaan.Jenis_Penelitian')),
             ],
         ),
         migrations.CreateModel(
@@ -81,40 +90,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Table_Asal_Sumber_Dana',
-            fields=[
-                ('sumber_dana', models.CharField(max_length=50, serialize=False, primary_key=True)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Table_Relasi_Asal_Sumber_Dana',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('relasi', models.ManyToManyField(to='percobaan.Table_Asal_Sumber_Dana')),
-            ],
-        ),
-        migrations.CreateModel(
             name='User',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('username', models.CharField(max_length=50)),
                 ('nama', models.CharField(max_length=100)),
             ],
-        ),
-        migrations.AddField(
-            model_name='penelitian',
-            name='asal_sumber_dana',
-            field=models.ForeignKey(to='percobaan.Table_Relasi_Asal_Sumber_Dana'),
-        ),
-        migrations.AddField(
-            model_name='penelitian',
-            name='bidang_penelitian',
-            field=models.ForeignKey(to='percobaan.Fokus_Penelitian'),
-        ),
-        migrations.AddField(
-            model_name='penelitian',
-            name='jenis_penelitian',
-            field=models.ForeignKey(to='percobaan.Jenis_Penelitian'),
         ),
         migrations.AddField(
             model_name='penelitian',

@@ -5,6 +5,13 @@
 
 # Create your views here.
 from django.http import HttpResponse
+from .models import *
+
+def penelitian(request, penelitian_id):
+    all_penelitian = Penelitian.objects.all()
+    html = ''
+    for penelitian in all_penelitian:
+        url = "/percobaan/penelitian"
 
 
 def index(request):
