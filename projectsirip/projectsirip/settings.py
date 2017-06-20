@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'isbn_field',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
