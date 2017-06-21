@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Penelitian</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+{% load crispy_forms_tags %}
+<div class="center"> Pengisian Form Penelitian </div>
+<hr>
+<div class="form-position">
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }} <br>
+
+    <input type="submit" value="simpan">
+</form>
+</div>
+</body>
+</html>

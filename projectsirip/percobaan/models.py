@@ -104,10 +104,18 @@ class Penelitian(models.Model):
     jumlah_dana_dalam_negeri = models.DecimalField(max_digits=12,decimal_places=2)
     jumlah_dana_luar_negeri = models.DecimalField(max_digits=12,decimal_places=2)
     program_studi = models.ForeignKey(Program_Studi, on_delete=models.CASCADE)
-    status_data = models.CharField(max_length=100)
+    status_data = models.SmallIntegerField(choices=(
+        (1, 'Valid'),
+        (2, 'Tidak Valid'),
+        (3, 'Belum diverifikasi')
+    ))
     penginput = models.ForeignKey(User, on_delete=models.CASCADE)
     file_path = models.CharField(max_length=300)
     date = models.DateField(auto_now=True)
+    flag = models.SmallIntegerField(choices=(
+        (1, 'Draft'),
+        (2, 'Publish')
+    ))
 
     def __unicode__(self):
         return self.judul_penelitian

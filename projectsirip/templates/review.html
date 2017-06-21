@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Review </title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+<body>
+
+{% load crispy_forms_tags %}
+<div class='col-sm-6'>
+    <h1>Preview</h1>
+    <hr>
+    <div class="content-preview">
+Nomor kontrak : {{ penelitian.nomor_kontrak }} <br>
+Tahun Pelaksanaan : {{ penelitian.tahun_pelaksanaan }} <br>
+Jenis Penelitian : {{ penelitian.jenis_penelitian }} <br>
+Bidang Penelitian : {{ penelitian.bidang_penelitian }} <br>
+Asal Sumber Dana :
+{% for dana in penelitian.asal_sumber_dana.all %}
+   <li>{{ dana }}</li>
+{% endfor %}
+Jenis Sumber Dana : {{ penelitian.jenis_sumber_dana }} <br>
+Nama Sumber Dana : {{ penelitian.nama_sumber_dana }} <br>
+Jumlah Dana Dalam Negeri : {{ penelitian.jumlah_dana_dalam_negeri }} <br>
+Jumlah Dana Luar Negeri : {{ penelitian.jumlah_dana_luar_negeri }} <br>
+Program studi : {{ penelitian.program_studi }} <br>
+Status Data : {{ penelitian.status_data }} <br>
+date : {{ penelitian.date }} <br>
+Penginput : {{ penelitian.penginput }} <br>
+    </div>
+    </div>
+
+<button onclick="Backfunction()">back</button>
+<script>
+function Backfunction() {
+    window.history.back();
+}
+</script>
+
+
+</body>
+</html>
